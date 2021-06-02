@@ -1,0 +1,31 @@
+#include<bits/stdc++.h>
+using namespace std;
+struct Edge {
+	int from, to, w;
+	Edge* nxt;
+	bool operator<(Edge e) {
+		return w < e.w;
+	}
+};
+Edge e[10005];
+int father[10005];
+int find(int x) {
+	return father[x] == x ? x : find(father[x]);
+}
+void union1(int x, int y) {
+	x = find(x);
+	y = find(y);
+	father[y] = x;
+}
+int kruskal(Edge* e,int m)
+{
+	sort(e, e + m);
+	int ret = 0;
+	for (int i = 0; i < m; i++)
+	{
+		if (find(e[i].from) == find(e[i].to))continue;
+		ret += e[i].w;
+		union1(e[i].from, e[i].to);
+	}
+	return ret;
+}
