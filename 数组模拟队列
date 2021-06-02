@@ -1,0 +1,42 @@
+#include<bits/stdc++.h>
+using namespace std;
+const int maxn = 5;
+struct Arrayqueue {
+	int a[maxn];
+	int start=0;
+	int end=0;
+	int size=0;
+	void push(int x) {
+		if (size < maxn) {
+			a[(end++)%maxn] = x; size++;
+		}
+		else cout << "队列已满！" << endl;
+	}
+	void pop() {
+		if (size) {
+			size--;
+			start++;
+		}
+		else cout << "队列为空！" << endl;
+	}
+	int top() {
+		if(size)return a[(end - 1)%maxn];
+		else cout << "队列为空！" << endl;
+		return -1;
+	}
+};
+int main()
+{
+	Arrayqueue s;
+	char cmd[4];
+	int y;
+	while (scanf_s("%s", cmd, 5) == 1) {
+		if (cmd[1] == 'u') {
+			scanf_s("%d", &y);
+			s.push(y);
+		}
+		if (cmd[1] == 'o' && cmd[0] == 'p')s.pop();
+		if (cmd[1] == 'o' && cmd[0] == 't')if (s.top() != -1)cout << s.top() << endl;
+	}
+	return 0;
+}
